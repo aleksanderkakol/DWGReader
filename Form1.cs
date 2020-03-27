@@ -9,6 +9,9 @@ namespace DWG
     {
         OpenFileDialog myFileDialog = new OpenFileDialog();
         public static int map_id;
+        public static int sys_id;
+        public static int grp_id;
+
         CAD cad = new CAD();
 
         public Form1()
@@ -41,9 +44,9 @@ namespace DWG
             }
         }
 
-        public int map_ID()
+        private int stringToInt(string text)
         {
-            return Int32.Parse(textBox2.Text);
+            return Int32.Parse(text);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -53,28 +56,50 @@ namespace DWG
                 MessageBox.Show("ID nie może być puste");
                 return;
             }
-            map_id = map_ID();
-
-
+            
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
                 MessageBox.Show("Wybierz plik");
                 return;
             }
-            string sourceFilePath = textBox1.Text;
 
-            List<object> itemsChecked = new List<object>();
-            foreach (object itemChecked in checkedListBox1.CheckedItems)
+            if (string.IsNullOrWhiteSpace(textBox3.Text))
             {
-                itemsChecked.Add(itemChecked);
+                MessageBox.Show("Podaj sys ID");
+                return;
             }
 
-            Thread myThread = new Thread(() =>
+            if (string.IsNullOrWhiteSpace(textBox4.Text))
             {
-                Thread.CurrentThread.IsBackground = true;
-                cad.SearchTextInDWGAutoCADFile(sourceFilePath, itemsChecked);
-            });
-            myThread.Start();
+                MessageBox.Show("Podaj grp ID");
+                return;
+            }
+
+            try
+            {
+                string sourceFilePath = textBox1.Text;
+                map_id = stringToInt(textBox2.Text);
+                sys_id = stringToInt(textBox3.Text);
+                grp_id = stringToInt(textBox4.Text);
+
+                List<object> itemsChecked = new List<object>();
+                foreach (object itemChecked in checkedListBox1.CheckedItems)
+                {
+                    itemsChecked.Add(itemChecked);
+                }
+
+                Thread myThread = new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    cad.SearchTextInDWGAutoCADFile(sourceFilePath, itemsChecked);
+                });
+                myThread.Start();
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
         }
     }
 }

@@ -80,6 +80,8 @@ namespace DWG
         private static void IterateCADInserts(CadImage cadImage, List<object> attrList)
         {
             int map_id = Form1.map_id;
+            int sys_id = Form1.sys_id;
+            int grp_id = Form1.grp_id;
             
             foreach (CadBlockEntity blockEntity in cadImage.BlockEntities.Values)
             {
@@ -116,7 +118,7 @@ namespace DWG
                                 }
                             }
                             Database db = new Database();
-                            db.InsertMap_zne(map_id, childInsertObject.InsertionPoint.X, childInsertObject.InsertionPoint.Y, childInsertObject.RotationAngle, childInsertObject.Name, BTNdsc);
+                            db.InsertMap_zne(map_id,sys_id,grp_id, childInsertObject.InsertionPoint.X, childInsertObject.InsertionPoint.Y, childInsertObject.RotationAngle, childInsertObject.Name, BTNdsc);
                             db.Dispose();
                             break;
                     }
