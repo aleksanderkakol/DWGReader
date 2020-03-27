@@ -166,7 +166,7 @@ namespace DWG
             }
         }
 
-        public void InsertMap_zne(int mapID, double positionX, double positionY, double rotation, string name, string btn_name)
+        public void InsertMap_zne(int mapID, int sysID, int grpID,double positionX, double positionY, double rotation, string name, string btn_name)
         {
             NpgsqlParameter map_id = new NpgsqlParameter("map_id", DbType.Int32);
             NpgsqlParameter zne_id = new NpgsqlParameter("zne_id", DbType.Int32);
@@ -178,7 +178,8 @@ namespace DWG
 
             ico_id.Value = IconID(name, rotation);
             map_id.Value = mapID;
-            zne_id.Value = InsertZNE(191, 1280, name, btn_name);
+            zne_id.Value = InsertZNE(sysID, grpID, name, btn_name);
+            //zne_id.Value = InsertZNE(191, 1280, name, btn_name);
             x.Value = positionX - 12;
             y.Value = 1080 - positionY - 12;
             w.Value = 25;
