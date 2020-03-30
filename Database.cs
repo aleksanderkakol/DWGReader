@@ -180,10 +180,10 @@ namespace DWG
             map_id.Value = mapID;
             zne_id.Value = InsertZNE(sysID, grpID, name, btn_name);
             //zne_id.Value = InsertZNE(191, 1280, name, btn_name);
-            x.Value = positionX - 12;
-            y.Value = 1080 - positionY - 12;
-            w.Value = 25;
-            h.Value = 25;
+            x.Value = positionX - Form1.x;
+            y.Value = 1080 - positionY - Form1.y;
+            w.Value = Form1.size;
+            h.Value = Form1.size;
             
             string insert = "INSERT INTO gis.map_zne(map_id,zne_id,x,y,w,h,ico_id) VALUES(:map_id,:zne_id,:x,:y,:w,:h,:ico_id)";
             NpgsqlCommand cmd = new NpgsqlCommand(insert, connection);

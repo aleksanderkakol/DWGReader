@@ -11,6 +11,9 @@ namespace DWG
         public static int map_id;
         public static int sys_id;
         public static int grp_id;
+        public static int y;
+        public static int x;
+        public static int size;
 
         CAD cad = new CAD();
 
@@ -33,14 +36,21 @@ namespace DWG
                 checkedListBox1.Items.Clear();
                 textBox1.Text = myFileDialog.FileName;
                 string sourceFilePath = textBox1.Text;
-                
-                List<string> cadList = cad.SearchInsertsAttributtesInDWGAutoCadFile(sourceFilePath);
-                foreach (var item in cadList)
+                try
                 {
-                    checkedListBox1.Items.AddRange(new object[] { item });
+                    List<string> cadList = cad.SearchInsertsAttributtesInDWGAutoCadFile(sourceFilePath);
+                    foreach (var item in cadList)
+                    {
+                        checkedListBox1.Items.AddRange(new object[] { item });
+                    }
+                    label3.Visible = true;
+                    checkedListBox1.Visible = true;
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
                 }
-                label3.Visible = true;
-                checkedListBox1.Visible = true;
+                
             }
         }
 
@@ -81,6 +91,9 @@ namespace DWG
                 map_id = stringToInt(textBox2.Text);
                 sys_id = stringToInt(textBox3.Text);
                 grp_id = stringToInt(textBox4.Text);
+                y = stringToInt(textBox5.Text);
+                x = stringToInt(textBox6.Text);
+                size = stringToInt(textBox7.Text);
 
                 List<object> itemsChecked = new List<object>();
                 foreach (object itemChecked in checkedListBox1.CheckedItems)
@@ -101,5 +114,6 @@ namespace DWG
                 return;
             }
         }
+
     }
 }

@@ -27,7 +27,7 @@ namespace DWG
         public List<string> SearchInsertsAttributtesInDWGAutoCadFile(string sourceFilePath)
         {
             CadImage cadImage = (CadImage)Image.Load(sourceFilePath);
-            return IterateCADInsertsATTRIB(cadImage);
+            return IterateCADInsertsATTRIB(cadImage);   
         }
 
         private static ArrayList IterateMTEXTNodes(CadImage cadImage)
